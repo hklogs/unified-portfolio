@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Github, ExternalLink, Sparkles, AlertCircle, FolderGit, Check } from 'lucide-react';
+import { Github, ExternalLink, Sparkles, AlertCircle, FolderGit, Check, Search, Filter, Layers, LayoutGrid } from 'lucide-react';
 import { staticProjects, type LocalProject } from '../data/hassaanData';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 
@@ -27,6 +27,64 @@ export default function GithubProjectsSection({
   const [tempGithubToken, setTempGithubToken] = useState(githubToken);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [selectedProject, setSelectedProject] = useState<LocalProject | null>(null);
+
+  // Custom states for refined layout & databank search
+  const [isAllProjectsOpen, setIsAllProjectsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+
+  // Top projects list as requested by the user
+  const topProjectNames = [
+    "CBO-RuralWSD (cboruralwater)",
+    "ReferralClose",
+    "Primus Leads",
+    "ultd-llc-real-estate"
+  ];
+
+  const topProjects = topProjectNames.map(name => 
+    staticProjects.find(p => p.name === name)
+  ).filter(Boolean) as LocalProject[];
+
+  // Remaining list or complete list filtered dynamically
+  const filteredProjects = staticProjects.filter(project => {
+    // 1. Search Query Filter
+    const matchesSearch = 
+      project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.tech.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
+
+    if (!matchesSearch) return false;
+
+    // 2. Category Filter
+    if (selectedCategory === 'All') return true;
+    
+    if (selectedCategory === 'AI & LLMs') {
+      const aiKeywords = ['gemini', 'gpt', 'ai', 'langgraph', 'langchain', 'vector', 'rag', 'embeddings', 'agent', 'compiler', 'transpiler'];
+      return aiKeywords.some(kw => 
+        project.name.toLowerCase().includes(kw) || 
+        project.desc.toLowerCase().includes(kw) ||
+        project.tech.some(t => t.toLowerCase().includes(kw))
+      );
+    }
+    
+    if (selectedCategory === 'Web Apps') {
+      const webKeywords = ['react', 'next.js', 'html', 'css', 'javascript', 'typescript', 'vite', 'pwa', 'express', 'node.js', 'supabase', 'firebase', 'postgresql', 'mongodb'];
+      return webKeywords.some(kw => 
+        project.tech.some(t => t.toLowerCase().includes(kw)) ||
+        project.name.toLowerCase().includes(kw)
+      );
+    }
+    
+    if (selectedCategory === 'Mobile Apps') {
+      return project.tech.some(t => t.toLowerCase().includes('kotlin') || t.toLowerCase().includes('java') || t.toLowerCase().includes('android'));
+    }
+    
+    if (selectedCategory === 'Systems') {
+      return project.tech.some(t => t.toLowerCase().includes('c++') || t.toLowerCase().includes('python') || t.toLowerCase().includes('ast') || t.toLowerCase().includes('compiler') || t.toLowerCase().includes('transpiler') || t.toLowerCase().includes('syntax'));
+    }
+
+    return true;
+  });
 
   useEffect(() => {
     setTempGeminiKey(geminiKey);
@@ -175,9 +233,9 @@ export default function GithubProjectsSection({
           </div>
         </div>
 
-        {/* 3-Column Grid for Project Cards */}
-        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {staticProjects.map((project, idx) => (
+        {/* Featured Projects Grid (Top 4) */}
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {topProjects.map((project, idx) => (
             <div 
               key={idx}
               onClick={() => setSelectedProject(project)}
@@ -217,39 +275,46 @@ export default function GithubProjectsSection({
               </div>
 
               {/* Card Summary Information */}
-              <div className="p-5 flex flex-col justify-between flex-1 relative z-10">
+              <div className="p-6 flex flex-col justify-between flex-1 relative z-10">
                 <div className="space-y-2">
-                  <span className="text-[8px] font-mono text-gray-500 uppercase tracking-widest font-bold">
-                    {`Project_0${idx + 1}`}
+                  <span className="text-[8px] font-mono text-[#0096ff] uppercase tracking-widest font-bold">
+                    Featured Project
                   </span>
-                  <h3 className="font-heading font-bold text-white text-sm tracking-wide leading-snug">
+                  <h3 className="font-heading font-bold text-white text-base tracking-wide leading-snug">
                     {project.name}
                   </h3>
-                  <p className="text-[11px] text-gray-400 leading-relaxed font-light font-sans line-clamp-2">
+                  <p className="text-xs text-gray-400 leading-relaxed font-light font-sans line-clamp-2">
                     {project.desc}
                   </p>
                 </div>
 
                 {/* Tech Stack badges */}
                 <div className="flex flex-wrap gap-1.5 pt-3 mt-4 border-t border-white/5">
-                  {project.tech.slice(0, 3).map((t, i) => (
+                  {project.tech.map((t, i) => (
                     <span 
                       key={i} 
-                      className="px-1.5 py-0.5 bg-white/5 rounded-md font-mono text-[8px] text-gray-400 border border-white/5"
+                      className="px-2 py-0.5 bg-white/5 rounded-md font-mono text-[8px] text-gray-400 border border-white/5"
                     >
                       {t}
                     </span>
                   ))}
-                  {project.tech.length > 3 && (
-                    <span className="text-[8px] font-mono text-gray-500 self-center">
-                      +{project.tech.length - 3} more
-                    </span>
-                  )}
                 </div>
               </div>
 
             </div>
           ))}
+        </div>
+
+        {/* See All Projects Trigger Button */}
+        <div className="mt-12 text-center flex flex-col items-center">
+          <div className="w-full max-w-md h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-8" />
+          <button
+            onClick={() => setIsAllProjectsOpen(true)}
+            className="px-8 py-3.5 bg-[#0a1535]/50 hover:bg-[#0a1535]/80 border border-white/10 hover:border-[#0096ff]/50 text-white font-bold font-mono text-xs uppercase tracking-widest rounded-2xl transition-all shadow-[0_0_30px_rgba(0,150,255,0.1)] hover:shadow-[0_0_35px_rgba(0,150,255,0.3)] hover:scale-105 cursor-pointer flex items-center gap-2 group animate-pulse hover:animate-none"
+          >
+            <LayoutGrid className="w-4 h-4 text-[#0096ff] group-hover:text-[#ff3232] transition-colors" />
+            <span>Explore All {staticProjects.length} Projects</span>
+          </button>
         </div>
 
       </div>
@@ -359,6 +424,103 @@ export default function GithubProjectsSection({
               </div>
             </div>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* See All Projects Databank Modal */}
+      <Dialog open={isAllProjectsOpen} onOpenChange={setIsAllProjectsOpen}>
+        <DialogContent className="bg-[#050a1f]/98 border border-white/10 text-slate-300 max-w-5xl rounded-3xl backdrop-blur-2xl p-6 sm:p-8 overflow-y-auto max-h-[90vh]">
+          <DialogHeader className="text-left border-b border-white/5 pb-4">
+            <span className="text-[9px] font-mono text-[#0096ff] uppercase tracking-widest block font-bold">
+              DATABANK SEARCH
+            </span>
+            <DialogTitle className="font-heading font-bold text-2xl text-white tracking-wide mt-1">
+              ALL CODEBASE ARCHIVES
+            </DialogTitle>
+            <DialogDescription className="text-xs text-gray-400 font-light mt-1">
+              Search and filter across all {staticProjects.length} validated codebase registries.
+            </DialogDescription>
+          </DialogHeader>
+
+          {/* Search and Filters Bar */}
+          <div className="flex flex-col sm:flex-row gap-4 my-4 items-center">
+            {/* Search Input */}
+            <div className="relative flex-1 w-full">
+              <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-500" />
+              <input
+                type="text"
+                placeholder="Search by project name, tech stack, or description..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-[#0a1535]/50 border border-white/10 hover:border-white/20 focus:border-[#0096ff]/50 rounded-xl pl-10 pr-4 py-2 text-xs text-white outline-none transition-all placeholder:text-gray-500 font-mono"
+              />
+            </div>
+
+            {/* Category Filter Pills */}
+            <div className="flex gap-2 overflow-x-auto w-full sm:w-auto pb-1 shrink-0 no-scrollbar">
+              {['All', 'AI & LLMs', 'Web Apps', 'Mobile Apps', 'Systems'].map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`px-3 py-1.5 rounded-lg border text-[10px] font-mono font-bold tracking-wide transition-all cursor-pointer whitespace-nowrap ${
+                    selectedCategory === cat
+                      ? 'bg-[#0096ff]/20 border-[#0096ff] text-[#0096ff] shadow-[0_0_10px_rgba(0,150,255,0.2)]'
+                      : 'bg-white/5 border-white/10 text-gray-400 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Scrollable Project Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-2 overflow-y-auto max-h-[50vh] pr-1">
+            {filteredProjects.map((project, idx) => (
+              <div 
+                key={idx}
+                onClick={() => {
+                  setSelectedProject(project);
+                  setIsAllProjectsOpen(false);
+                }}
+                className="bg-[#0a1535]/30 hover:bg-[#0a1535]/60 border border-white/5 hover:border-[#0096ff]/30 rounded-2xl p-4 transition-all duration-200 cursor-pointer flex flex-col justify-between text-left h-[180px] hover:shadow-[0_0_15px_rgba(0,150,255,0.1)] animate-fade-in"
+              >
+                <div className="space-y-2">
+                  <div className="flex justify-between items-start">
+                    <span className="text-[8px] font-mono text-gray-500 font-bold uppercase tracking-wider">
+                      {project.name.toLowerCase().includes('llc') || project.name.toLowerCase().includes('home') || project.name.toLowerCase().includes('cbo') ? 'Featured Node' : 'Library Node'}
+                    </span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#0096ff]" />
+                  </div>
+                  <h4 className="font-heading font-bold text-white text-xs tracking-wide line-clamp-1">
+                    {project.name}
+                  </h4>
+                  <p className="text-[10px] text-gray-400 leading-relaxed line-clamp-3">
+                    {project.desc}
+                  </p>
+                </div>
+                
+                <div className="flex flex-wrap gap-1 pt-2 border-t border-white/5 mt-2">
+                  {project.tech.slice(0, 3).map((t, i) => (
+                    <span key={i} className="px-1 py-0.5 bg-white/5 rounded font-mono text-[7px] text-gray-400 border border-white/5">
+                      {t}
+                    </span>
+                  ))}
+                  {project.tech.length > 3 && (
+                    <span className="text-[7px] font-mono text-gray-500 self-center">
+                      +{project.tech.length - 3}
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
+            {filteredProjects.length === 0 && (
+              <div className="col-span-full py-12 flex flex-col items-center justify-center text-center text-gray-500 space-y-2 font-mono">
+                <AlertCircle className="w-8 h-8 text-[#ff3232]/50 animate-pulse" />
+                <span className="text-xs">Zero codebase records matched query parameters.</span>
+              </div>
+            )}
+          </div>
         </DialogContent>
       </Dialog>
     </section>

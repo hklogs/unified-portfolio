@@ -439,6 +439,15 @@ export const staticProjects: LocalProject[] = [
     thumbnail: "/prioriti_task_thumb.jpg",
     usecase: "Demonstrates academic & algorithmic problem solving across graphs, sorting, and dynamic allocations.",
     working: "Implements standard template libraries, custom memory pointers, and graph node validation checkers."
+  },
+  {
+    name: "UiSpecificationEngine (C-Style to React Transpiler)",
+    desc: "A structural UI layout compiler pipeline. Translates sequential C-style UI structs serialized from C# into modern interactive React components styled with Tailwind CSS, utilizing a Python transpiler AST parser.",
+    url: "https://github.com/hklogs/UiSpecificationEngine",
+    tech: ["C#", "Python", "React", "Tailwind CSS", "AST Compiler"],
+    thumbnail: "/yuck_fou_thumb.jpg",
+    usecase: "Enables legacy C/C++ or C# desktop UI blueprints to be transpiled into web-based react interfaces automatically, saving manual front-end development hours.",
+    working: "C# program serializes component properties; Python script builds AST nodes, processes styles, maps dynamic state variables, and generates clean React JSX files."
   }
 ];
 
