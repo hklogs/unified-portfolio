@@ -299,26 +299,22 @@ Respond ONLY with the JSON object, no other text.`,
     <section
       ref={sectionRef}
       id="oracle"
-      className="relative min-h-screen py-20 overflow-hidden"
+      className="relative min-h-screen py-20 overflow-hidden bg-[#0D0D0D]"
     >
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#050a1f] via-[#0a0f2e] to-[#050a1f]" />
-
       {/* Section Title */}
       <div className="oracle-title text-center mb-16 px-6 relative z-10">
         <div className="inline-flex items-center gap-2 mb-4">
-          <div className="p-2 rounded-lg bg-gradient-to-br from-[#0096ff]/20 to-[#ff3232]/20 border border-white/10">
-            <Sparkles className="w-5 h-5 text-white" />
+          <div className="p-2 rounded-none bg-[#E50914]/10 border border-[#E50914]/30">
+            <Sparkles className="w-5 h-5 text-[#E50914]" />
           </div>
-          <span className="text-gray-300 font-mono text-sm tracking-wider">
+          <span className="text-neutral-400 font-mono text-sm tracking-wider">
             AI-POWERED GUIDANCE
           </span>
         </div>
-        <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">
-          <span className="text-white">THE </span>
-          <span className="bg-gradient-to-r from-[#0096ff] to-[#ff3232] bg-clip-text text-transparent">ORACLE</span>
+        <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 uppercase">
+          THE <span className="text-[#E50914]">ORACLE</span>
         </h2>
-        <p className="text-gray-400 max-w-xl mx-auto">
+        <p className="text-neutral-400 max-w-xl mx-auto font-sans text-sm">
           Not sure which path to take? Describe your project and let the AI guide you
         </p>
       </div>
@@ -327,32 +323,32 @@ Respond ONLY with the JSON object, no other text.`,
       <div className="max-w-3xl mx-auto px-6 relative z-10">
         <div
           ref={terminalRef}
-          className="relative rounded-2xl overflow-hidden border border-[#0096ff]/20 hover:border-[#0096ff]/40 transition-all duration-500 shadow-[0_0_30px_rgba(0,150,255,0.1)]"
+          className="relative rounded-none overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all duration-500 shadow-2xl"
         >
           {/* Terminal Header */}
-          <div className="bg-[#0a1535]/80 backdrop-blur px-4 py-3 flex items-center gap-2 border-b border-[#0096ff]/20">
+          <div className="bg-[#121212] px-4 py-3 flex items-center gap-2 border-b border-neutral-800">
             <div className="flex gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#ff3232]/80" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-              <div className="w-3 h-3 rounded-full bg-[#0096ff]/80" />
+              <div className="w-2.5 h-2.5 bg-[#E50914]" />
+              <div className="w-2.5 h-2.5 bg-neutral-700" />
+              <div className="w-2.5 h-2.5 bg-neutral-600" />
             </div>
             <div className="flex-1 text-center">
-              <span className="font-mono text-xs text-gray-400">
+              <span className="font-mono text-xs text-neutral-400">
                 oracle.exe — AI Recommendation Engine
               </span>
             </div>
           </div>
 
           {/* Terminal Body */}
-          <div className="bg-[#050a1f]/90 backdrop-blur p-6">
+          <div className="bg-[#121212] p-6">
             {/* Prompt */}
             <div className="mb-4">
-              <p className="font-mono text-sm text-gray-400">
-                <span className="text-[#0096ff]">root@gateway</span>
+              <p className="font-mono text-sm text-neutral-400">
+                <span className="text-[#E50914]">root@gateway</span>
                 <span className="text-white">:</span>
-                <span className="text-[#ff3232]">~</span>
+                <span className="text-neutral-500">~</span>
                 <span className="text-white">$</span>
-                <span className="ml-2">describe your project needs below</span>
+                <span className="ml-2 text-neutral-300">describe your project needs below</span>
               </p>
             </div>
 
@@ -362,12 +358,12 @@ Respond ONLY with the JSON object, no other text.`,
                 value={userInput}
                 onChange={(e) => setUserInput(e.target.value)}
                 placeholder="Example: I need a secure e-commerce platform with a modern UI and payment integration..."
-                className="min-h-[120px] bg-[#0a1535]/50 border-[#0096ff]/20 text-white placeholder:text-gray-500 font-mono text-sm resize-none focus:border-[#0096ff]/50 focus:ring-[#0096ff]/20"
+                className="min-h-[120px] bg-[#181818] border border-neutral-800 text-white placeholder:text-neutral-600 font-mono text-sm resize-none focus:border-[#E50914]/50 focus:ring-[#E50914]/10 rounded-none"
                 disabled={isAnalyzing}
               />
               
               {/* Character Count */}
-              <div className="absolute bottom-2 right-2 text-xs font-mono text-gray-500">
+              <div className="absolute bottom-2 right-2 text-xs font-mono text-neutral-600">
                 {userInput.length}/500
               </div>
             </div>
@@ -377,7 +373,7 @@ Respond ONLY with the JSON object, no other text.`,
               <Button
                 onClick={analyzeWithGroq}
                 disabled={!userInput.trim() || isAnalyzing}
-                className="bg-gradient-to-r from-[#0096ff] to-[#ff3232] text-white font-mono font-semibold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed border-0"
+                className="bg-[#E50914] text-white font-mono font-bold hover:bg-[#b01e1e] disabled:opacity-50 disabled:cursor-not-allowed border-0 rounded-none uppercase tracking-widest text-xs py-2 px-5"
               >
                 {isAnalyzing ? (
                   <>
@@ -395,14 +391,14 @@ Respond ONLY with the JSON object, no other text.`,
 
             {/* Analysis Output */}
             {isAnalyzing && (
-              <div className="mt-6 p-4 rounded-lg bg-[#0a1535]/50 border border-[#0096ff]/20">
+              <div className="mt-6 p-4 rounded-none bg-[#181818] border border-neutral-800 text-left">
                 <div className="flex items-center gap-3">
-                  <Loader2 className="w-5 h-5 text-[#0096ff] animate-spin" />
-                  <span className="font-mono text-sm text-[#0096ff]">
+                  <Loader2 className="w-5 h-5 text-[#E50914] animate-spin" />
+                  <span className="font-mono text-sm text-[#E50914]">
                     Processing input...
                   </span>
                 </div>
-                <div className="mt-2 font-mono text-xs text-gray-400">
+                <div className="mt-2 font-mono text-xs text-neutral-500">
                   {`> Parsing requirements`}<br />
                   {`> Matching against skill matrix`}<br />
                   {`> Calculating optimal path...`}
@@ -411,8 +407,8 @@ Respond ONLY with the JSON object, no other text.`,
             )}
 
             {error && (
-              <div className="mt-6 p-4 rounded-lg bg-[#ff3232]/10 border border-[#ff3232]/30">
-                <p className="font-mono text-sm text-[#ff3232]">
+              <div className="mt-6 p-4 rounded-none bg-[#E50914]/10 border border-[#E50914]/30 text-left">
+                <p className="font-mono text-sm text-[#E50914]">
                   Error: {error}
                 </p>
               </div>
@@ -422,33 +418,33 @@ Respond ONLY with the JSON object, no other text.`,
           </div>
 
           {/* Decorative Corner Elements */}
-          <div className="absolute top-0 left-0 w-4 h-4 border-l-2 border-t-2 border-[#0096ff]/50" />
-          <div className="absolute top-0 right-0 w-4 h-4 border-r-2 border-t-2 border-[#ff3232]/50" />
-          <div className="absolute bottom-0 left-0 w-4 h-4 border-l-2 border-b-2 border-[#0096ff]/50" />
-          <div className="absolute bottom-0 right-0 w-4 h-4 border-r-2 border-b-2 border-[#ff3232]/50" />
+          <div className="absolute top-0 left-0 w-4 h-4 border-l-2 border-t-2 border-neutral-800" />
+          <div className="absolute top-0 right-0 w-4 h-4 border-r-2 border-t-2 border-neutral-800" />
+          <div className="absolute bottom-0 left-0 w-4 h-4 border-l-2 border-b-2 border-neutral-800" />
+          <div className="absolute bottom-0 right-0 w-4 h-4 border-r-2 border-b-2 border-neutral-800" />
         </div>
 
         {/* Tips */}
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-4 rounded-xl bg-[#0a1535]/50 border border-[#0096ff]/20 hover:border-[#0096ff]/40 transition-all">
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+          <div className="p-4 rounded-none bg-[#121212] border border-neutral-800 hover:border-neutral-700 transition-all">
             <div className="flex items-center gap-2 mb-2">
-              <Code2 className="w-4 h-4 text-[#0096ff]" />
-              <span className="font-mono text-sm text-[#0096ff]">
+              <Code2 className="w-4 h-4 text-[#E50914]" />
+              <span className="font-mono text-sm text-[#E50914] font-bold">
                 Architect Keywords
               </span>
             </div>
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-neutral-400 font-sans leading-normal">
               website, web app, UI/UX, React, Next.js, dashboard, e-commerce, frontend, design
             </p>
           </div>
-          <div className="p-4 rounded-xl bg-[#1a0505]/50 border border-[#ff3232]/20 hover:border-[#ff3232]/40 transition-all">
+          <div className="p-4 rounded-none bg-[#121212] border border-neutral-800 hover:border-neutral-700 transition-all">
             <div className="flex items-center gap-2 mb-2">
-              <Terminal className="w-4 h-4 text-[#ff3232]" />
-              <span className="font-mono text-sm text-[#ff3232]">
+              <Terminal className="w-4 h-4 text-[#E50914]" />
+              <span className="font-mono text-sm text-[#E50914] font-bold">
                 Operator Keywords
               </span>
             </div>
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-neutral-400 font-sans leading-normal">
               security, audit, Linux, kernel, blockchain, smart contract, penetration testing
             </p>
           </div>

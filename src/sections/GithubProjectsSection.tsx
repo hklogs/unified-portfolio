@@ -41,6 +41,21 @@ export default function GithubProjectsSection({
     "ultd-llc-real-estate"
   ];
 
+  const getProjectSubtitle = (name: string) => {
+    switch (name) {
+      case "CBO-RuralWSD (cboruralwater)":
+        return "PROGRESSIVE WEB APP / SQA AUDITED";
+      case "ReferralClose":
+        return "AUTOMATED LEAD-ROUTING ENGINE";
+      case "Primus Leads":
+        return "BRAND GATEWAY & COMPLIANCE";
+      case "ultd-llc-real-estate":
+        return "REAL ESTATE SHOWCASE / SQA AUDITED";
+      default:
+        return "SOFTWARE CODEBASE / SYSTEM INTEGRATION";
+    }
+  };
+
   const topProjects = topProjectNames.map(name => 
     staticProjects.find(p => p.name === name)
   ).filter(Boolean) as LocalProject[];
@@ -142,12 +157,11 @@ export default function GithubProjectsSection({
     <section 
       ref={containerRef} 
       id="projects" 
-      className="py-20 border-t border-white/5 relative overflow-hidden"
+      className="py-20 border-t border-neutral-800 relative overflow-hidden bg-[#0D0D0D]"
       style={{ perspective: '1200px' }}
     >
       {/* Visual background details */}
-      <div className="absolute top-1/4 left-0 w-80 h-80 bg-[#ff3232]/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-[#0096ff]/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/4 left-0 w-80 h-80 bg-[#E50914]/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6">
         
@@ -155,32 +169,40 @@ export default function GithubProjectsSection({
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12 items-stretch text-left">
           
           {/* Left 2 columns: Title & Description */}
-          <div className="lg:col-span-2 flex flex-col justify-center bg-[#0a1535]/25 border border-white/5 rounded-3xl p-8 backdrop-blur-sm space-y-4">
-            <span className="text-[10px] font-mono text-[#0096ff] uppercase tracking-widest font-bold">
-              SYSTEM PORTFOLIO: COMPILED
-            </span>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-white leading-tight">
-              PROJECT <span className="bg-gradient-to-r from-[#0096ff] to-[#ff3232] bg-clip-text text-transparent">SHOWCASE</span>
+          <div className="lg:col-span-2 flex flex-col justify-center bg-[#121212] border border-neutral-800 rounded-none p-8 backdrop-blur-sm space-y-4">
+            <div className="flex justify-between items-center w-full">
+              <span className="text-[10px] font-mono text-[#E50914] uppercase tracking-widest font-bold">
+                SYSTEM PORTFOLIO: COMPILED
+              </span>
+              <button 
+                onClick={() => setIsAllProjectsOpen(true)}
+                className="text-[10px] font-mono uppercase text-[#E50914] tracking-widest font-bold hover:underline cursor-pointer flex items-center gap-1 shrink-0"
+              >
+                VIEW ALL {staticProjects.length} PROJECTS →
+              </button>
+            </div>
+            <h2 className="font-heading text-4xl md:text-5xl font-bold text-white leading-tight uppercase select-none">
+              SELECTED <span className="text-[#E50914]">PROJECTS</span>
             </h2>
-            <p className="text-gray-400 text-xs md:text-sm font-light font-mono max-w-2xl leading-relaxed">
+            <p className="text-neutral-400 text-xs md:text-sm font-light font-mono max-w-2xl leading-relaxed">
               {`> Every card represents a validated, functional codebase. Click any card to inspect architecture specifications, SQA workflows, execution steps, and live console nodes.`}
             </p>
             <div className="flex flex-wrap gap-4 items-center pt-2">
-              <div className="flex items-center gap-1.5 text-[10px] sm:text-xs text-gray-500 font-mono">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <div className="flex items-center gap-1.5 text-[10px] sm:text-xs text-neutral-500 font-mono">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 <span>Log Analyzer: Online</span>
               </div>
-              <div className="flex items-center gap-1.5 text-[10px] sm:text-xs text-gray-500 font-mono">
-                <span className="w-2 h-2 rounded-full bg-[#0096ff] animate-pulse" />
+              <div className="flex items-center gap-1.5 text-[10px] sm:text-xs text-neutral-500 font-mono">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#E50914] animate-pulse" />
                 <span>Vercel Nodes: Active</span>
               </div>
             </div>
           </div>
 
           {/* Right 1 column: Compact System Console */}
-          <div className="bg-[#0a1535]/50 border border-white/10 rounded-3xl p-6 backdrop-blur-md flex flex-col justify-between space-y-4">
-            <div className="flex items-center gap-2 border-b border-white/5 pb-2">
-              <FolderGit className="w-4 h-4 text-[#ff3232]" />
+          <div className="bg-[#121212] border border-neutral-800 rounded-none p-6 backdrop-blur-md flex flex-col justify-between space-y-4">
+            <div className="flex items-center gap-2 border-b border-neutral-800 pb-2">
+              <FolderGit className="w-4 h-4 text-[#E50914]" />
               <h3 className="text-xs font-bold uppercase tracking-wider text-white font-mono">
                 System Console
               </h3>
@@ -277,10 +299,15 @@ export default function GithubProjectsSection({
               {/* Card Summary Information */}
               <div className="p-6 flex flex-col justify-between flex-1 relative z-10">
                 <div className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-mono text-[#E50914] tracking-widest font-bold">
-                      0{idx + 1}. FEATURED NODE
-                    </span>
+                  <div className="flex justify-between items-start">
+                    <div className="flex flex-col">
+                      <span className="text-sm font-bold font-mono text-[#E50914] leading-none mb-1">
+                        0{idx + 1}
+                      </span>
+                      <span className="text-[9px] font-mono text-neutral-400 uppercase tracking-widest leading-none font-bold">
+                        {getProjectSubtitle(project.name)}
+                      </span>
+                    </div>
                     <span className="text-xs text-[#E50914] translate-x-[-4px] opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
                       Explore →
                     </span>

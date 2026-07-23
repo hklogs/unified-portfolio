@@ -181,43 +181,43 @@ Ensure correct operational behavior, UI boundary controls, and transaction verif
   };
 
   return (
-    <section id="playgrounds" className="py-20 border-t border-white/5 relative">
+    <section id="playgrounds" className="py-20 border-t border-neutral-800 relative bg-[#0D0D0D]">
       <div className="max-w-6xl mx-auto px-6">
         
         {/* Title */}
         <div className="mb-12 text-center">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-3 text-white font-mono">
-            SQA TESTING <span className="bg-gradient-to-r from-[#ff3232] to-[#0096ff] bg-clip-text text-transparent">LABS</span>
+          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-3 text-white">
+            SQA TESTING <span className="text-[#E50914]">LABS</span>
           </h2>
-          <p className="text-gray-400 text-sm md:text-base font-light max-w-xl mx-auto font-mono">
-            {`> Interactive QA playgrounds auditing boundary values and generating plans.`}
+          <p className="text-neutral-400 text-sm md:text-base font-light max-w-xl mx-auto font-sans">
+            Interactive QA playgrounds auditing boundary values and generating plans.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
           
           {/* LAB 01: Instagram Boundary Simulator */}
-          <div className="bg-[#0a1535]/30 border border-white/10 p-6 rounded-3xl backdrop-blur-md space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/5 pb-4">
+          <div className="bg-[#121212] border border-neutral-800 p-6 rounded-none space-y-6 shadow-xl text-left">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-neutral-800 pb-4">
               <div className="space-y-1">
-                <span className="text-[9px] font-mono text-[#ff3232] uppercase tracking-wider block font-bold">
+                <span className="text-[9px] font-mono text-[#E50914] uppercase tracking-wider block font-bold">
                   SQA LAB MODULE 01
                 </span>
-                <h4 className="font-bold text-sm text-white font-heading">
+                <h4 className="font-bold text-base text-white font-heading">
                   Instagram Watch History Cap Boundary Simulator
                 </h4>
               </div>
 
-              <div className="flex bg-[#050a1f] p-1 rounded-lg border border-white/10 gap-1 text-[11px]">
+              <div className="flex bg-[#181818] p-1 rounded-none border border-neutral-800 gap-1 text-[11px]">
                 <button
                   onClick={() => setIgTab("visual")}
-                  className={`px-3 py-1 cursor-pointer transition-all uppercase tracking-wider text-[9px] rounded-md ${igTab === "visual" ? "bg-white text-black font-bold" : "text-gray-400 hover:text-white"}`}
+                  className={`px-3 py-1 cursor-pointer transition-all uppercase tracking-wider text-[9px] rounded-none ${igTab === "visual" ? "bg-[#E50914] text-white font-bold" : "text-gray-400 hover:text-white"}`}
                 >
                   Device UI
                 </button>
                 <button
                   onClick={() => setIgTab("bugTicket")}
-                  className={`px-3 py-1 cursor-pointer transition-all uppercase tracking-wider text-[9px] rounded-md ${igTab === "bugTicket" ? "bg-white text-black font-bold" : "text-gray-400 hover:text-white"}`}
+                  className={`px-3 py-1 cursor-pointer transition-all uppercase tracking-wider text-[9px] rounded-none ${igTab === "bugTicket" ? "bg-[#E50914] text-white font-bold" : "text-gray-400 hover:text-white"}`}
                 >
                   Bug Ticket
                 </button>
@@ -226,26 +226,26 @@ Ensure correct operational behavior, UI boundary controls, and transaction verif
 
             {igTab === "visual" ? (
               <div className="space-y-4">
-                <p className="text-xs text-gray-400 leading-relaxed font-light">
+                <p className="text-xs text-neutral-400 leading-relaxed font-light font-sans">
                   Simulating a real client-backend constraint error discovered on <strong>Instagram Mobile App Watch History</strong>. Deleting items succeeds under N=100 boundary, but crashes or locks the select queue above it.
                 </p>
 
-                <div className="flex flex-wrap items-center justify-between gap-2 bg-[#050a1f] p-3 rounded-xl border border-white/5">
+                <div className="flex flex-wrap items-center justify-between gap-2 bg-[#181818] p-3 rounded-none border border-neutral-800">
                   <div className="flex items-center gap-2">
-                    <div className="text-xs font-mono text-gray-400">
+                    <div className="text-xs font-mono text-neutral-400">
                       Items: <span className="font-bold text-white">{igSelectedItems.length}</span> / {igItemCount}
                     </div>
 
                     {igOutputStatus === "triggered" && (
-                      <span className="px-2 py-0.5 bg-[#ff3232]/10 border border-[#ff3232]/35 text-[#ff3232] text-[9px] rounded font-bold flex items-center gap-1 animate-pulse">
+                      <span className="px-2 py-0.5 bg-[#E50914]/10 border border-[#E50914]/35 text-[#E50914] text-[9px] rounded-none font-bold flex items-center gap-1 animate-pulse">
                         <AlertTriangle className="w-3 h-3" />
                         EXCEPTION TRIGGERED (N &gt;= 100)
                       </span>
                     )}
 
                     {igOutputStatus === "passed" && (
-                      <span className="px-2 py-0.5 bg-[#0096ff]/10 border border-[#0096ff]/35 text-[#0096ff] text-[9px] rounded font-semibold flex items-center gap-0.5">
-                        <CheckCircle2 className="w-3 h-3" />
+                      <span className="px-2 py-0.5 bg-[#E50914]/5 border border-[#E50914]/20 text-neutral-300 text-[9px] rounded-none font-semibold flex items-center gap-0.5">
+                        <CheckCircle2 className="w-3 h-3 text-[#E50914]" />
                         Valid Pool
                       </span>
                     )}
@@ -254,7 +254,7 @@ Ensure correct operational behavior, UI boundary controls, and transaction verif
                   <div className="flex gap-2 font-mono">
                     <button
                       onClick={handleIgBulkSelectAll}
-                      className="px-2.5 py-1 text-[9px] uppercase font-bold text-white hover:bg-white/5 rounded border border-white/10 cursor-pointer"
+                      className="px-2.5 py-1 text-[9px] uppercase font-bold text-white hover:bg-neutral-800 rounded-none border border-neutral-800 cursor-pointer"
                     >
                       Fill 95
                     </button>
@@ -262,7 +262,7 @@ Ensure correct operational behavior, UI boundary controls, and transaction verif
                     {igSelectedItems.length < 100 && (
                       <button
                         onClick={triggerDefectBurst}
-                        className="px-2.5 py-1 text-[9px] uppercase font-bold text-[#ff3232] hover:bg-[#ff3232]/10 rounded border border-[#ff3232]/25 cursor-pointer"
+                        className="px-2.5 py-1 text-[9px] uppercase font-bold text-[#E50914] hover:bg-[#E50914]/10 rounded-none border border-[#E50914]/25 cursor-pointer"
                       >
                         Push 102
                       </button>
@@ -270,7 +270,7 @@ Ensure correct operational behavior, UI boundary controls, and transaction verif
 
                     <button
                       onClick={handleIgReset}
-                      className="p-1 px-2 text-gray-400 hover:text-white cursor-pointer"
+                      className="p-1 px-2 text-neutral-500 hover:text-white cursor-pointer"
                       title="Reset Simulator"
                     >
                       <RotateCcw className="w-3.5 h-3.5" />
@@ -279,7 +279,7 @@ Ensure correct operational behavior, UI boundary controls, and transaction verif
                 </div>
 
                 {/* Grid */}
-                <div className="bg-[#050a1f] p-4 border border-white/5 rounded-xl">
+                <div className="bg-[#181818] p-4 border border-neutral-800 rounded-none">
                   <div className="grid grid-cols-8 sm:grid-cols-10 gap-1.5 select-none">
                     {Array.from({ length: igItemCount }).map((_, idx) => {
                       const id = idx + 1;
@@ -288,10 +288,10 @@ Ensure correct operational behavior, UI boundary controls, and transaction verif
                         <div
                           key={id}
                           onClick={() => toggleIgItemSelection(id)}
-                          className={`aspect-square border flex items-center justify-center font-mono text-[8px] cursor-pointer rounded transition-all duration-100 ${
+                          className={`aspect-square border flex items-center justify-center font-mono text-[8px] cursor-pointer rounded-none transition-all duration-100 ${
                             selected
-                              ? "bg-gradient-to-br from-[#ff3232] to-[#b01e1e] border-[#ff3232]/40 text-white font-bold scale-95 shadow-inner"
-                              : "bg-[#0a1535]/30 border-white/5 text-gray-500 hover:border-white/15"
+                              ? "bg-[#E50914] border-[#E50914]/40 text-white font-bold scale-95 shadow-inner"
+                              : "bg-[#121212] border-neutral-800 text-neutral-500 hover:border-neutral-700"
                           }`}
                         >
                           <span>#{id}</span>
@@ -302,8 +302,8 @@ Ensure correct operational behavior, UI boundary controls, and transaction verif
                 </div>
               </div>
             ) : (
-              <div className="space-y-4 font-mono text-xs text-gray-400 bg-[#050a1f] p-5 rounded-xl border border-white/5 leading-relaxed text-left">
-                <div className="flex items-center gap-2 text-[#ff3232] border-b border-white/5 pb-2">
+              <div className="space-y-4 font-mono text-xs text-neutral-400 bg-[#181818] p-5 rounded-none border border-neutral-800 leading-relaxed text-left">
+                <div className="flex items-center gap-2 text-[#E50914] border-b border-neutral-800 pb-2">
                   <Bug className="w-4 h-4" />
                   <span className="font-bold uppercase tracking-wider">DEFECT DETAILS: INSTA-QA-2026-BVA</span>
                 </div>
@@ -312,8 +312,8 @@ Ensure correct operational behavior, UI boundary controls, and transaction verif
                   <p><strong className="text-white">Assigned:</strong> Hassaan Abdullah Kayani (UIIT QA Lead)</p>
                   <p><strong className="text-white">Heuristics:</strong> Discrepancy between client UI pop count and server bulk transaction limits.</p>
                   <p><strong className="text-white">Checked Boundaries:</strong> N = 99 (Safe), N = 100 (Array size overrun exception, UI freezes)</p>
-                  <hr className="border-white/5 my-2" />
-                  <p className="italic text-gray-500">
+                  <hr className="border-neutral-800 my-2" />
+                  <p className="italic text-neutral-500 font-sans text-[11px]">
                     &quot;The selection loop crashes when bulk selecting more than 99 index segments since the concurrent client pop operations overwhelm the API batch buffer size.&quot;
                   </p>
                 </div>
@@ -322,17 +322,17 @@ Ensure correct operational behavior, UI boundary controls, and transaction verif
           </div>
 
           {/* LAB 02: Automated SQA Test Plan Generator */}
-          <div className="bg-[#0a1535]/30 border border-white/10 p-6 rounded-3xl backdrop-blur-md space-y-6">
-            <div className="space-y-1 border-b border-white/5 pb-4">
-              <span className="text-[9px] font-mono text-[#0096ff] uppercase tracking-wider block font-bold">
+          <div className="bg-[#121212] border border-neutral-800 p-6 rounded-none space-y-6 shadow-xl text-left">
+            <div className="space-y-1 border-b border-neutral-800 pb-4">
+              <span className="text-[9px] font-mono text-[#E50914] uppercase tracking-wider block font-bold">
                 SQA LAB MODULE 02
               </span>
-              <h4 className="font-bold text-sm text-white font-heading">
+              <h4 className="font-bold text-base text-white font-heading">
                 AI SQA Test Suite Architect (Gemini Engine)
               </h4>
             </div>
 
-            <p className="text-xs text-gray-400 leading-relaxed font-light">
+            <p className="text-xs text-neutral-400 leading-relaxed font-light font-sans">
               Enter any feature structure or api controller endpoint below, and trigger the generator to draft structured test plan schemas.
             </p>
 
@@ -342,13 +342,13 @@ Ensure correct operational behavior, UI boundary controls, and transaction verif
                 value={testFeature}
                 onChange={(e) => setTestFeature(e.target.value)}
                 placeholder="e.g. JWT Auth Expiry, Cart Discount..."
-                className="flex-1 bg-[#050a1f] border border-white/10 hover:border-white/20 rounded-xl px-4 py-3 text-xs text-white outline-none transition-all placeholder:text-gray-600 font-mono"
+                className="flex-1 bg-[#181818] border border-neutral-800 hover:border-neutral-700 focus:border-[#E50914]/50 rounded-none px-4 py-3 text-xs text-white outline-none transition-all placeholder:text-neutral-600 font-mono"
               />
               <button
                 type="button"
                 onClick={() => handleGenerateTestSuite(testFeature)}
                 disabled={isGenerating || !testFeature.trim()}
-                className="px-5 py-3 bg-white text-black font-bold rounded-xl text-xs disabled:opacity-40 hover:bg-gray-200 transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0"
+                className="px-5 py-3 bg-[#E50914] text-white font-bold rounded-none text-xs disabled:opacity-40 hover:bg-[#b01e1e] transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0 uppercase tracking-widest font-mono"
               >
                 {isGenerating ? (
                   <>
@@ -357,7 +357,7 @@ Ensure correct operational behavior, UI boundary controls, and transaction verif
                   </>
                 ) : (
                   <>
-                    <Play className="w-3.5 h-3.5 text-[#0096ff]" />
+                    <Play className="w-3.5 h-3.5 text-white" />
                     <span>Run AI Architect</span>
                   </>
                 )}
@@ -366,7 +366,7 @@ Ensure correct operational behavior, UI boundary controls, and transaction verif
 
             {/* Template helpers */}
             <div className="flex flex-wrap items-center gap-1.5 pt-1">
-              <span className="text-[9px] text-gray-500 uppercase font-semibold">Presets:</span>
+              <span className="text-[9px] text-neutral-500 uppercase font-semibold">Presets:</span>
               {SQA_TEMPLATES.map((tpl, i) => (
                 <button
                   key={i}
@@ -374,7 +374,7 @@ Ensure correct operational behavior, UI boundary controls, and transaction verif
                     setTestFeature(tpl);
                     handleGenerateTestSuite(tpl);
                   }}
-                  className="text-[9px] px-2.5 py-1 bg-[#050a1f] hover:bg-white/5 text-gray-400 rounded-lg border border-white/10 cursor-pointer"
+                  className="text-[9px] px-2.5 py-1 bg-[#181818] hover:bg-neutral-800 text-neutral-400 rounded-none border border-neutral-800 cursor-pointer"
                 >
                   {tpl}
                 </button>
@@ -383,21 +383,21 @@ Ensure correct operational behavior, UI boundary controls, and transaction verif
 
             {/* Generated output */}
             {generatedResult && (
-              <div className="bg-[#050a1f] p-4 rounded-xl border border-white/5 space-y-3 max-h-[300px] overflow-y-auto font-mono text-[11px] leading-relaxed text-left text-gray-300">
-                <div className="flex justify-between items-center border-b border-white/5 pb-2">
-                  <span className="text-[9px] font-mono text-[#0096ff] uppercase font-bold flex items-center gap-1">
+              <div className="bg-[#181818] p-4 rounded-none border border-neutral-800 space-y-3 max-h-[300px] overflow-y-auto font-mono text-[11px] leading-relaxed text-left text-neutral-300">
+                <div className="flex justify-between items-center border-b border-neutral-800 pb-2">
+                  <span className="text-[9px] font-mono text-[#E50914] uppercase font-bold flex items-center gap-1">
                     <Terminal className="w-3.5 h-3.5" />
                     Generated Test Suite Markdown
                   </span>
                   <button
                     onClick={handleCopyMarkdown}
-                    className="text-[9px] font-mono font-bold text-gray-500 hover:text-white flex items-center gap-1 cursor-pointer"
+                    className="text-[9px] font-mono font-bold text-[#E50914] hover:text-white flex items-center gap-1 cursor-pointer"
                   >
                     <Copy className="w-3 h-3" />
                     <span>Copy</span>
                   </button>
                 </div>
-                <div className="whitespace-pre-wrap font-sans text-xs">
+                <div className="whitespace-pre-wrap font-sans text-xs text-neutral-400">
                   {generatedResult}
                 </div>
               </div>
