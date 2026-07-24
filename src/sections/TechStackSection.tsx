@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { personalInfo, linkedinSkillsList, detailedCourses } from '../data/hassaanData';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import MagneticCard from '../components/MagneticCard';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -78,26 +79,26 @@ export default function TechStackSection() {
     <section
       ref={sectionRef}
       id="skills"
-      className="relative py-20 overflow-hidden border-t border-neutral-800 bg-[#0D0D0D] select-none"
+      className="relative py-24 overflow-hidden border-t border-white/10 bg-[#0D0D0D] select-none"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">
         
         {/* Title */}
-        <div ref={titleRef} className="text-center mb-16">
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-3 text-white">
+        <div ref={titleRef} className="text-left mb-16 border-b border-white/10 pb-6">
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-white">
             SKILLS &amp; <span className="text-[#E50914]">COMPETENCIES</span>
           </h2>
-          <p className="text-neutral-400 text-sm md:text-base font-light max-w-xl mx-auto font-sans">
+          <p className="text-[#A1A1AA] text-xs sm:text-sm font-light font-sans mt-2">
             Technical credentials and course specifications indexed from LinkedIn.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 items-start text-left">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 divide-y lg:divide-y-0 lg:divide-x divide-white/10 border-t border-b border-white/10">
           
-          {/* Left Column: Skills lists from LinkedIn */}
-          <div ref={leftRef} className="space-y-6">
-            <div className="flex items-center justify-between border-b border-neutral-800 pb-4">
-              <h3 className="font-heading text-lg font-bold text-white uppercase tracking-wider flex items-center gap-2">
+          {/* Left Column: Professional Skills from LinkedIn */}
+          <div ref={leftRef} className="lg:col-span-7 p-0 lg:pr-8 py-8 space-y-8">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <h3 className="font-heading text-xl font-bold text-white uppercase tracking-wider flex items-center gap-2">
                 <Shield className="w-5 h-5 text-[#E50914]" />
                 Professional Skills
               </h3>
@@ -109,22 +110,22 @@ export default function TechStackSection() {
                 className="inline-flex items-center gap-1.5 text-xs text-[#E50914] hover:underline font-mono"
               >
                 <span>LinkedIn Profile</span>
-                <LinkIcon className="w-3 h-3" />
+                <LinkIcon className="w-3.5 h-3.5" />
               </a>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               {linkedinSkillsList.map((skillGroup, idx) => (
-                <div 
+                <div
                   key={idx}
-                  className="p-5 bg-[#121212] border border-neutral-800 hover:border-neutral-700 rounded-none transition-all hover:-translate-y-0.5 cursor-pointer"
+                  className="space-y-3 text-left"
                 >
-                  <h4 className="font-mono text-xs font-bold text-[#E50914] border-b border-neutral-800 pb-2 mb-3 uppercase tracking-wider">
+                  <h4 className="font-mono text-xs font-bold text-[#E50914] border-b border-white/10 pb-2 uppercase tracking-wider">
                     {skillGroup.category}
                   </h4>
-                  <ul className="space-y-2">
+                  <ul className="space-y-2 pt-1">
                     {skillGroup.items.map((skill, i) => (
-                      <li key={i} className="flex items-center gap-2 text-xs text-neutral-300 font-light font-sans">
+                      <li key={i} className="flex items-center gap-2.5 text-xs text-neutral-300 font-light font-sans">
                         <span className="w-1.5 h-1.5 bg-[#E50914] shrink-0" />
                         <span>{skill}</span>
                       </li>
@@ -135,21 +136,21 @@ export default function TechStackSection() {
             </div>
           </div>
 
-          {/* Right Column: Courses & Ecosystem tools */}
-          <div ref={rightRef} className="space-y-8">
+          {/* Right Column: Core Coursework & Workspace Tools */}
+          <div ref={rightRef} className="lg:col-span-5 p-0 lg:pl-8 py-8 space-y-8">
             
-            {/* Core Coursework List + Explore All Button */}
+            {/* Core Coursework List */}
             <div className="space-y-4">
-              <h3 className="font-heading text-lg font-bold text-white uppercase tracking-wider border-b border-neutral-800 pb-4 flex items-center gap-2">
+              <h3 className="font-heading text-xl font-bold text-white uppercase tracking-wider border-b border-white/10 pb-4 flex items-center gap-2">
                 <GraduationCap className="w-5 h-5 text-[#E50914]" />
                 Core Coursework
               </h3>
-              <div className="p-5 bg-[#121212] border border-neutral-800 rounded-none">
-                <ul className="grid grid-cols-1 gap-2.5">
+              <div className="space-y-2">
+                <ul className="grid grid-cols-1 gap-2">
                   {personalInfo.courses.map((course, idx) => (
                     <li 
                       key={idx} 
-                      className="p-2.5 bg-[#181818] border border-neutral-800 rounded-none text-xs text-neutral-300 font-mono flex items-center justify-between group hover:border-[#E50914]/40 transition-all hover:-translate-y-0.5 cursor-pointer"
+                      className="p-3 bg-white/[0.02] border border-white/10 text-xs text-neutral-300 font-mono flex items-center justify-between group hover:border-[#E50914] transition-all cursor-pointer"
                     >
                       <span>{`> ${course}`}</span>
                       <span className="text-[9px] text-[#E50914] uppercase font-bold tracking-wider">Verified</span>
@@ -160,21 +161,21 @@ export default function TechStackSection() {
                 {/* Explore All Courses Trigger Button */}
                 <button
                   onClick={() => setIsCoursesModalOpen(true)}
-                  className="w-full mt-4 py-2.5 bg-[#181818] border border-neutral-800 hover:border-[#E50914]/40 text-[#E50914] hover:text-white text-xs font-mono font-bold uppercase tracking-widest transition-all hover:-translate-y-0.5 cursor-pointer flex items-center justify-center gap-2"
+                  className="w-full mt-4 py-3 bg-[#E50914]/10 border border-[#E50914] text-[#E50914] hover:bg-[#E50914] hover:text-white text-xs font-mono font-bold uppercase tracking-widest transition-all cursor-pointer flex items-center justify-center gap-2"
                 >
-                  <GraduationCap className="w-4 h-4 text-[#E50914]" />
+                  <GraduationCap className="w-4 h-4" />
                   <span>EXPLORE ALL COURSES ({detailedCourses.length}) →</span>
                 </button>
               </div>
             </div>
 
-            {/* AI developer tools highlight */}
-            <div className="space-y-4">
-              <h3 className="font-heading text-lg font-bold text-white uppercase tracking-wider border-b border-neutral-800 pb-4 flex items-center gap-2">
+            {/* Workspace Tools */}
+            <div className="space-y-4 pt-4 border-t border-white/10">
+              <h3 className="font-heading text-xl font-bold text-white uppercase tracking-wider border-b border-white/10 pb-4 flex items-center gap-2">
                 <Cpu className="w-5 h-5 text-[#E50914]" />
                 Workspace Tools
               </h3>
-              <div className="p-5 bg-[#121212] border border-neutral-800 rounded-none space-y-3 font-mono text-xs leading-relaxed text-neutral-400">
+              <div className="space-y-3 font-mono text-xs leading-relaxed text-[#A1A1AA]">
                 <p>
                   I coordinate active development workflows utilizing modern developer environments, coding assistants, and local CLI tools:
                 </p>
@@ -186,7 +187,7 @@ export default function TechStackSection() {
                   ].map((tool, idx) => (
                     <span 
                       key={idx} 
-                      className="px-2.5 py-1 bg-[#181818] border border-neutral-800 rounded-none text-neutral-300 font-mono text-[10px] uppercase hover:border-[#E50914] hover:text-white transition-all cursor-pointer"
+                      className="px-2.5 py-1 bg-white/[0.03] border border-white/10 text-neutral-300 font-mono text-[10px] uppercase hover:border-[#E50914] hover:text-white transition-all cursor-pointer"
                     >
                       {tool}
                     </span>

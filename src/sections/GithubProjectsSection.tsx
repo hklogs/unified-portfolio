@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Github, ExternalLink, Sparkles, AlertCircle, FolderGit, Check, Search, Filter, Layers, LayoutGrid } from 'lucide-react';
 import { staticProjects, type LocalProject } from '../data/hassaanData';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import MagneticCard from '../components/MagneticCard';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -182,72 +183,69 @@ export default function GithubProjectsSection({
           </button>
         </div>
 
-        {/* Monolithic Horizontal Grid (Separated ONLY by 1px dark hairline borders) */}
-        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 border border-neutral-800 bg-[#121212] rounded-none divide-y md:divide-y-0 md:divide-x divide-neutral-800">
+        {/* Monolithic Horizontal Grid (Separated ONLY by 1px hairline dark borders) */}
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 border border-white/10 divide-y md:divide-y-0 md:divide-x divide-white/10 bg-transparent">
           {topProjects.map((project, idx) => (
-            <div 
+            <div
               key={idx}
               onClick={() => setSelectedProject(project)}
-              className="group relative bg-[#121212] hover:bg-neutral-900 transition-colors duration-300 flex flex-col w-full text-left cursor-pointer p-0"
+              className="group relative bg-[#0D0D0D] hover:bg-neutral-900/60 transition-all duration-300 flex flex-col justify-between w-full text-left cursor-pointer p-6 space-y-6"
             >
-              {/* 16:9 Dark Mockup Thumbnail */}
-              <div className="relative aspect-video overflow-hidden bg-neutral-950 border-b border-neutral-800 flex items-center justify-center">
-                {project.thumbnail ? (
-                  <img 
-                    src={project.thumbnail} 
-                    alt={project.name}
-                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80';
-                    }}
-                  />
-                ) : (
-                  <div className="absolute inset-0 bg-neutral-900 flex flex-col items-center justify-center p-6 text-center">
-                    <FolderGit className="w-8 h-8 text-neutral-700 mb-2 group-hover:text-[#E50914] transition-colors" />
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 font-bold">
-                      {project.name}
+              <div className="space-y-4">
+                <div className="flex justify-between items-start">
+                  <div className="flex flex-col">
+                    <span className="text-3xl font-black font-heading text-[#FF2E37] leading-none mb-1">
+                      0{idx + 1}
+                    </span>
+                    <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-widest leading-none font-bold pt-1">
+                      {getProjectSubtitle(project.name)}
                     </span>
                   </div>
-                )}
-              </div>
+                  <span className="text-lg text-[#FF2E37] group-hover:translate-x-1 transition-transform duration-300 font-bold">
+                    →
+                  </span>
+                </div>
 
-              {/* Information below thumbnail */}
-              <div className="p-6 flex flex-col justify-between flex-1 space-y-4">
-                <div className="space-y-2">
-                  <div className="flex justify-between items-start">
-                    <div className="flex flex-col">
-                      <span className="text-base font-bold font-mono text-[#E50914] leading-none mb-1">
-                        0{idx + 1}
-                      </span>
-                      <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-widest leading-none font-bold">
-                        {getProjectSubtitle(project.name)}
+                <div className="relative aspect-video overflow-hidden bg-neutral-950 border border-white/10 flex items-center justify-center">
+                  {project.thumbnail ? (
+                    <img 
+                      src={project.thumbnail} 
+                      alt={project.name}
+                      className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80';
+                      }}
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-neutral-900 flex flex-col items-center justify-center p-6 text-center">
+                      <FolderGit className="w-8 h-8 text-neutral-700 mb-2 group-hover:text-[#FF2E37] transition-colors" />
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 font-bold">
+                        {project.name}
                       </span>
                     </div>
-                    <span className="text-sm text-[#E50914] group-hover:translate-x-1 transition-transform duration-300 font-bold">
-                      →
-                    </span>
-                  </div>
+                  )}
+                </div>
 
-                  <h3 className="font-heading font-bold text-white text-xl tracking-wide uppercase leading-tight pt-1">
+                <div className="space-y-2 pt-2">
+                  <h3 className="font-heading font-bold text-white text-2xl tracking-wide uppercase leading-tight group-hover:text-[#FF2E37] transition-colors duration-300">
                     {project.name}
                   </h3>
 
-                  <p className="text-xs text-[#8E8E93] leading-relaxed font-light font-sans line-clamp-3">
+                  <p className="text-xs text-[#A1A1AA] leading-relaxed font-light font-sans line-clamp-3">
                     {project.desc}
                   </p>
                 </div>
+              </div>
 
-                {/* Tech Stack badges */}
-                <div className="flex flex-wrap gap-1.5 pt-3 border-t border-neutral-800/80">
-                  {project.tech.map((t, i) => (
-                    <span 
-                      key={i} 
-                      className="px-2.5 py-0.5 bg-[#181818] rounded-none font-mono text-[9px] text-neutral-300 border border-neutral-800 uppercase"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
+              <div className="flex flex-wrap gap-1.5 pt-4 border-t border-white/10">
+                {project.tech.map((t, i) => (
+                  <span 
+                    key={i} 
+                    className="px-2 py-0.5 bg-white/[0.03] font-mono text-[9px] text-neutral-300 border border-white/10 uppercase group-hover:border-[#FF2E37]/40 transition-colors"
+                  >
+                    {t}
+                  </span>
+                ))}
               </div>
 
             </div>

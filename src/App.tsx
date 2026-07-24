@@ -3,6 +3,8 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MessageSquare } from 'lucide-react';
 
+import CustomCursor from './components/CustomCursor';
+
 // Import sections & pages
 import LoadingScreen from './sections/LoadingScreen';
 import Navigation from './components/Navigation';
@@ -60,24 +62,81 @@ function App() {
   useEffect(() => {
     if (!isLoading && pageView === 'home' && mainRef.current) {
       const sections = mainRef.current.querySelectorAll('section');
-      sections.forEach((section, index) => {
-        const direction = index % 2 === 0 ? -50 : 50;
-        gsap.fromTo(
-          section,
-          { opacity: 0, x: direction, y: 30 },
-          {
-            opacity: 1,
-            x: 0,
-            y: 0,
-            duration: 0.8,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: section,
-              start: 'top 85%',
-              toggleActions: 'play none none reverse',
+      sections.forEach((section) => {
+        const headers = section.querySelectorAll('h1, h2, .section-header');
+        if (headers.length > 0) {
+          gsap.fromTo(
+            headers,
+            { opacity: 0, y: 40, scale: 0.94, rotateX: 8 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              rotateX: 0,
+              duration: 0.8,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: section,
+                start: 'top 85%',
+                toggleActions: 'play none none reverse',
+              },
+            }
+          );
+        }
+
+        const cards = section.querySelectorAll('.cinematic-card, .project-card, .experience-card, .skill-card, .pub-card, .portal-card, .project-3d-card');
+        if (cards.length > 0) {
+          gsap.fromTo(
+            cards,
+            { 
+              opacity: 0, 
+              y: 60, 
+              scale: 0.85,
+              rotateX: 12,
+              z: -50,
             },
-          }
-        );
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              rotateX: 0,
+              z: 0,
+              duration: 0.75,
+              stagger: {
+                amount: 0.5,
+                from: 'start',
+              },
+              ease: 'back.out(1.4)',
+              scrollTrigger: {
+                trigger: section,
+                start: 'top 78%',
+                toggleActions: 'play none none reverse',
+              },
+            }
+          );
+        }
+        
+        const magneticCards = section.querySelectorAll('.magnetic-card');
+        if (magneticCards.length > 0) {
+          gsap.fromTo(
+            magneticCards,
+            { opacity: 0, y: 50, scale: 0.9, filter: 'blur(4px)' },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              filter: 'blur(0px)',
+              duration: 0.7,
+              stagger: 0.12,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: section,
+                start: 'top 80%',
+                toggleActions: 'play none none reverse',
+              },
+            }
+          );
+        }
       });
     }
   }, [isLoading, pageView]);
@@ -188,6 +247,9 @@ function App() {
         isOpen={isChatOpen}
         onClose={() => setIsChatOpen(false)}
       />
+
+      {/* Custom Cinematic Cursor */}
+      <CustomCursor />
     </div>
   );
 }

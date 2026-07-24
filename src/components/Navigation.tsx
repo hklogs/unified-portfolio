@@ -17,20 +17,20 @@ export default function Navigation() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[100] px-4 sm:px-6 md:px-12 py-3.5 flex justify-between items-center bg-[#0D0D0D]/95 backdrop-blur-md border-b border-neutral-800/80 select-none">
-      {/* Top Left: Title & Sub-title */}
+    <header className="fixed top-0 left-0 right-0 z-[100] px-4 sm:px-6 md:px-10 py-4 flex justify-between items-center bg-[#0D0D0D]/95 backdrop-blur-md border-b border-white/10 select-none">
+      {/* Top Left: Headline Role */}
       <div 
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="flex items-center gap-2.5 cursor-pointer group"
+        className="flex items-center gap-3 cursor-pointer group"
       >
-        <div className="w-2.5 h-2.5 bg-[#E50914] group-hover:scale-125 transition-transform" />
-        <span className="text-white font-mono text-[10px] sm:text-xs uppercase tracking-widest font-bold">
+        <span className="w-2 h-2 bg-[#E50914] group-hover:scale-125 transition-transform" />
+        <span className="text-[#A1A1AA] hover:text-white font-mono text-[10px] sm:text-xs uppercase tracking-widest font-semibold transition-colors">
           SOFTWARE QUALITY ASSURANCE &amp; AI ENGINEER
         </span>
       </div>
 
       {/* Desktop Navigation Links */}
-      <nav className="hidden md:flex items-center gap-6 text-xs font-mono tracking-wider uppercase text-neutral-400">
+      <nav className="hidden lg:flex items-center gap-7 text-xs font-mono tracking-widest uppercase text-neutral-400">
         <button
           onClick={() => scrollToSection('about')}
           className="hover:text-white transition-colors cursor-pointer"
@@ -63,16 +63,24 @@ export default function Navigation() {
         </button>
         <button
           onClick={() => scrollToSection('gateway')}
-          className="px-3 py-1.5 bg-[#E50914] text-white font-bold hover:bg-[#b01e1e] transition-colors cursor-pointer"
+          className="hover:text-white transition-colors cursor-pointer"
         >
           Contact
         </button>
       </nav>
 
+      {/* Top Right: Single Crimson Red Outline Pill Tag */}
+      <div className="hidden sm:flex items-center">
+        <div className="px-3.5 py-1.5 border border-[#E50914] text-[#E50914] bg-[#E50914]/5 rounded-full font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#E50914] animate-ping" />
+          <span>AVAILABLE FOR SQA AUDITING ✦</span>
+        </div>
+      </div>
+
       {/* Mobile Menu Toggle Button */}
       <button
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        className="md:hidden p-2 text-neutral-300 hover:text-white focus:outline-none cursor-pointer"
+        className="lg:hidden p-2 text-neutral-300 hover:text-white focus:outline-none cursor-pointer"
         aria-label="Toggle mobile menu"
       >
         {mobileMenuOpen ? <X className="w-5 h-5 text-[#E50914]" /> : <Menu className="w-5 h-5 text-white" />}
@@ -80,7 +88,13 @@ export default function Navigation() {
 
       {/* Mobile Dropdown Navigation Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-[#0D0D0D]/98 border-b border-neutral-800 p-6 flex flex-col gap-4 animate-fade-in shadow-2xl z-[110]">
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-[#0D0D0D]/98 border-b border-neutral-800 p-6 flex flex-col gap-4 animate-fade-in shadow-2xl z-[110]">
+          <div className="pb-2 border-b border-neutral-800">
+            <span className="px-3 py-1 border border-[#E50914] text-[#E50914] bg-[#E50914]/5 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider inline-flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E50914]" />
+              <span>AVAILABLE FOR SQA AUDITING ✦</span>
+            </span>
+          </div>
           <button
             onClick={() => scrollToSection('about')}
             className="flex items-center gap-3 text-left text-sm font-mono tracking-wider uppercase text-neutral-300 hover:text-[#E50914] transition-colors py-1.5"
